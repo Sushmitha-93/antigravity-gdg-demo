@@ -13,6 +13,20 @@ A lightweight, modern web application built with **Python Flask** and vanilla **
 - **Tweet Any Update**: Click "Tweet" on any specific update to open a pre-populated composer modal with character limits, hashtag suggestions, clipboard copy, and one-click posting to X/Twitter via Web Intent.
 - **Zero Heavy Frontend Frameworks**: 100% vanilla HTML5, CSS3, and modern JavaScript.
 
+## Screenshots
+
+### ☀️ Light Mode & Feed Overview
+![BigQuery Release Notes Light Mode](screenshots/1_app_light_mode.png)
+
+### 🌙 Dark Mode Interface
+![BigQuery Release Notes Dark Mode](screenshots/3_app_dark_mode.png)
+
+### 🐦 Share on X (Twitter) Composer Modal
+![Tweet Composer Modal](screenshots/2_tweet_composer_modal.png)
+
+### 🔍 Instant Keyword Search & Category Filtering
+![Instant Search and Filter](screenshots/4_search_and_filter.png)
+
 ## Setup & Running
 
 ### 1. Install Dependencies
