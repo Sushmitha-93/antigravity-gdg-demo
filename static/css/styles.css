@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BigQuery Release Notes Stylesheet (Vanilla CSS)
+   BigQuery Release Notes Stylesheet (Vanilla CSS with Dark Mode Support)
    ========================================================================== */
 
 :root {
@@ -7,14 +7,31 @@
   --primary-hover: #1557b0;
   --primary-light: #e8f0fe;
   --bg-color: #f8fafd;
+  --header-bg: #ffffff;
   --card-bg: #ffffff;
+  --card-header-bg: #fafbfc;
+  --item-bg: #ffffff;
+  --item-hover-bg: #fafcff;
+  --item-hover-border: #b8ccf5;
+  --input-bg: #fafafa;
   --text-main: #202124;
   --text-secondary: #5f6368;
   --text-muted: #80868b;
   --border-color: #dadce0;
   --border-light: #e8eaed;
+  --code-bg: #f1f3f4;
+  --code-text: #d93025;
+  --pre-bg: #202124;
+  --pre-text: #e8eaed;
+  --tweet-btn-bg: #ffffff;
+  --tweet-btn-border: #cfd9de;
+  --tweet-btn-text: #0f1419;
+  --modal-bg: #ffffff;
+  --modal-header-bg: #ffffff;
+  --modal-footer-bg: #fafbfc;
+  --preview-bg: #f8f9fa;
   
-  /* Category Colors */
+  /* Category Colors (Light) */
   --cat-feature-bg: #e8f0fe;
   --cat-feature-color: #1967d2;
   --cat-deprecated-bg: #fce8e6;
@@ -25,20 +42,72 @@
   --cat-changed-color: #137333;
   --cat-general-bg: #f1f3f4;
   --cat-general-color: #3c4043;
+  --pill-bg: #f1f3f4;
+  --pill-hover-bg: #e8eaed;
+  --pill-text: #5f6368;
 
   /* UI Tokens */
   --font-sans: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'Fira Code', 'Roboto Mono', monospace;
-  --shadow-sm: 0 1px 2px 0 rgba(60, 64, 67, 0.1), 0 1px 3px 1px rgba(60, 64, 67, 0.08);
-  --shadow-md: 0 4px 6px -1px rgba(60, 64, 67, 0.12), 0 2px 4px -1px rgba(60, 64, 67, 0.08);
-  --shadow-lg: 0 10px 15px -3px rgba(60, 64, 67, 0.15), 0 4px 6px -2px rgba(60, 64, 67, 0.05);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.06), 0 1px 3px 1px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-pill: 9999px;
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --primary-color: #8ab4f8;
+  --primary-hover: #aecbfa;
+  --primary-light: rgba(138, 180, 248, 0.15);
+  --bg-color: #121316;
+  --header-bg: #1e1f23;
+  --card-bg: #1e1f23;
+  --card-header-bg: #25272c;
+  --item-bg: #25272c;
+  --item-hover-bg: #2c2f35;
+  --item-hover-border: #4f535d;
+  --input-bg: #282a2f;
+  --text-main: #e8eaed;
+  --text-secondary: #9aa0a6;
+  --text-muted: #80868b;
+  --border-color: #383b42;
+  --border-light: #2e3137;
+  --code-bg: #2d3036;
+  --code-text: #f28b82;
+  --pre-bg: #121316;
+  --pre-text: #e8eaed;
+  --tweet-btn-bg: #25272c;
+  --tweet-btn-border: #44474f;
+  --tweet-btn-text: #e8eaed;
+  --modal-bg: #1e1f23;
+  --modal-header-bg: #1e1f23;
+  --modal-footer-bg: #25272c;
+  --preview-bg: #25272c;
+  
+  /* Category Colors (Dark) */
+  --cat-feature-bg: rgba(138, 180, 248, 0.18);
+  --cat-feature-color: #8ab4f8;
+  --cat-deprecated-bg: rgba(242, 139, 130, 0.18);
+  --cat-deprecated-color: #f28b82;
+  --cat-announcement-bg: rgba(215, 174, 251, 0.18);
+  --cat-announcement-color: #d7aefb;
+  --cat-changed-bg: rgba(129, 201, 149, 0.18);
+  --cat-changed-color: #81c995;
+  --cat-general-bg: #2d3036;
+  --cat-general-color: #bdc1c6;
+  --pill-bg: #2d3036;
+  --pill-hover-bg: #383b42;
+  --pill-text: #bdc1c6;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -55,6 +124,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
 .container {
@@ -68,12 +138,13 @@ body {
    Header Bar
    ========================================================================== */
 .app-header {
-  background-color: #ffffff;
+  background-color: var(--header-bg);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
 .header-content {
@@ -130,6 +201,11 @@ body {
   letter-spacing: 0.04em;
 }
 
+[data-theme="dark"] .source-badge {
+  background-color: rgba(129, 201, 149, 0.18);
+  color: #81c995;
+}
+
 .subtitle {
   font-size: 0.88rem;
   color: var(--text-secondary);
@@ -139,7 +215,7 @@ body {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .status-indicator {
@@ -189,20 +265,25 @@ body {
   color: #ffffff;
 }
 
+[data-theme="dark"] .btn-primary {
+  color: #121316;
+  font-weight: 600;
+}
+
 .btn-primary:hover:not(:disabled) {
   background-color: var(--primary-hover);
   box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   color: var(--text-main);
   border-color: var(--border-color);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: #f1f3f4;
-  border-color: #c6c9cc;
+  background-color: var(--item-hover-bg);
+  border-color: var(--primary-color);
 }
 
 .btn-ghost {
@@ -211,7 +292,7 @@ body {
 }
 
 .btn-ghost:hover {
-  background-color: #f1f3f4;
+  background-color: var(--item-hover-bg);
   color: var(--text-main);
 }
 
@@ -220,9 +301,37 @@ body {
   color: #ffffff;
 }
 
+[data-theme="dark"] .btn-x {
+  background-color: #ffffff;
+  color: #0f1419;
+  font-weight: 600;
+}
+
 .btn-x:hover:not(:disabled) {
-  background-color: #272c30;
+  opacity: 0.9;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-icon {
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background-color: var(--item-hover-bg);
+  color: var(--text-main);
+  border-color: var(--primary-color);
+}
+
+.theme-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .btn-small {
@@ -259,7 +368,7 @@ body {
 }
 
 .controls-bar {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 16px 20px;
@@ -268,6 +377,7 @@ body {
   flex-direction: column;
   gap: 14px;
   box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
 .search-box {
@@ -293,14 +403,14 @@ body {
   font-size: 0.95rem;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  background-color: #fafafa;
+  background-color: var(--input-bg);
   color: var(--text-main);
   transition: all var(--transition-fast);
   outline: none;
 }
 
 .search-box input:focus {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
 }
@@ -328,8 +438,8 @@ body {
 }
 
 .pill {
-  background-color: #f1f3f4;
-  color: var(--text-secondary);
+  background-color: var(--pill-bg);
+  color: var(--pill-text);
   border: 1px solid transparent;
   padding: 6px 14px;
   border-radius: var(--radius-pill);
@@ -341,7 +451,7 @@ body {
 }
 
 .pill:hover {
-  background-color: #e8eaed;
+  background-color: var(--pill-hover-bg);
   color: var(--text-main);
 }
 
@@ -350,6 +460,11 @@ body {
   color: #ffffff;
   border-color: var(--primary-color);
   box-shadow: 0 1px 3px rgba(26, 115, 232, 0.3);
+}
+
+[data-theme="dark"] .pill.active {
+  color: #121316;
+  font-weight: 600;
 }
 
 .results-stats {
@@ -373,9 +488,9 @@ body {
 }
 
 .alert-error {
-  background-color: #fce8e6;
-  border: 1px solid #fad2cf;
-  color: #c5221f;
+  background-color: var(--cat-deprecated-bg);
+  border: 1px solid var(--cat-deprecated-color);
+  color: var(--cat-deprecated-color);
 }
 
 .alert-content {
@@ -400,7 +515,7 @@ body {
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
 .entry-card:hover {
@@ -408,7 +523,7 @@ body {
 }
 
 .entry-header {
-  background-color: #fafbfc;
+  background-color: var(--card-header-bg);
   border-bottom: 1px solid var(--border-light);
   padding: 14px 20px;
   display: flex;
@@ -472,13 +587,13 @@ body {
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   padding: 16px 18px;
-  background-color: #ffffff;
+  background-color: var(--item-bg);
   transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .update-item:hover {
-  border-color: #b8ccf5;
-  background-color: #fafcff;
+  border-color: var(--item-hover-border);
+  background-color: var(--item-hover-bg);
 }
 
 .update-item-header {
@@ -535,17 +650,16 @@ body {
   font-weight: 500;
   padding: 5px 10px;
   border-radius: var(--radius-pill);
-  border: 1px solid #cfd9de;
-  background-color: #ffffff;
-  color: #0f1419;
+  border: 1px solid var(--tweet-btn-border);
+  background-color: var(--tweet-btn-bg);
+  color: var(--tweet-btn-text);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .tweet-action-btn:hover {
-  background-color: #f7f9f9;
-  border-color: #536471;
-  color: #000000;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .tweet-action-btn svg {
@@ -555,7 +669,7 @@ body {
 
 .update-item-content {
   font-size: 0.93rem;
-  color: #3c4043;
+  color: var(--text-main);
   line-height: 1.6;
 }
 
@@ -578,20 +692,21 @@ body {
 
 .update-item-content code {
   font-family: var(--font-mono);
-  background-color: #f1f3f4;
-  color: #d93025;
+  background-color: var(--code-bg);
+  color: var(--code-text);
   padding: 2px 5px;
   border-radius: 4px;
   font-size: 0.85em;
 }
 
 .update-item-content pre {
-  background-color: #202124;
-  color: #e8eaed;
+  background-color: var(--pre-bg);
+  color: var(--pre-text);
   padding: 12px;
   border-radius: var(--radius-sm);
   overflow-x: auto;
   margin: 10px 0;
+  border: 1px solid var(--border-light);
 }
 
 .update-item-content pre code {
@@ -604,7 +719,7 @@ body {
    Skeleton Loading State
    ========================================================================== */
 .skeleton-card {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 24px;
@@ -614,7 +729,7 @@ body {
 }
 
 .skeleton-line {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--input-bg) 25%, var(--border-light) 50%, var(--input-bg) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 4px;
@@ -648,7 +763,7 @@ body {
    No Results State
    ========================================================================== */
 .no-results {
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border: 1px dashed var(--border-color);
   border-radius: var(--radius-md);
   padding: 48px 24px;
@@ -680,7 +795,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(32, 33, 36, 0.6);
+  background-color: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -698,7 +813,8 @@ body {
 }
 
 .modal-card {
-  background-color: #ffffff;
+  background-color: var(--modal-bg);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   width: 100%;
   max-width: 580px;
@@ -707,7 +823,7 @@ body {
   flex-direction: column;
   overflow: hidden;
   transform: translateY(12px) scale(0.98);
-  transition: transform var(--transition-normal);
+  transition: transform var(--transition-normal), background-color var(--transition-normal);
 }
 
 .modal-overlay.is-active .modal-card {
@@ -717,6 +833,7 @@ body {
 .modal-header {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border-color);
+  background-color: var(--modal-header-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -764,7 +881,7 @@ body {
 }
 
 .selected-update-preview {
-  background-color: #f8f9fa;
+  background-color: var(--preview-bg);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
@@ -809,6 +926,7 @@ body {
 .char-counter {
   font-family: var(--font-mono);
   font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 .char-counter.is-warning {
@@ -827,6 +945,7 @@ body {
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-size: 0.95rem;
+  background-color: var(--input-bg);
   color: var(--text-main);
   resize: vertical;
   min-height: 120px;
@@ -835,6 +954,7 @@ body {
 }
 
 .tweet-textarea:focus {
+  background-color: var(--card-bg);
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
 }
@@ -853,7 +973,7 @@ body {
 }
 
 .tag-pill {
-  background-color: #f1f3f4;
+  background-color: var(--pill-bg);
   border: 1px solid transparent;
   padding: 3px 8px;
   border-radius: var(--radius-pill);
@@ -871,7 +991,7 @@ body {
 .modal-footer {
   padding: 14px 20px;
   border-top: 1px solid var(--border-color);
-  background-color: #fafbfc;
+  background-color: var(--modal-footer-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -912,6 +1032,11 @@ body {
   pointer-events: auto;
 }
 
+[data-theme="dark"] .toast {
+  background-color: #2d3036;
+  border: 1px solid var(--border-color);
+}
+
 .toast.toast-success {
   border-left: 4px solid #34a853;
 }
@@ -929,12 +1054,13 @@ body {
    Footer
    ========================================================================== */
 .app-footer {
-  background-color: #ffffff;
+  background-color: var(--header-bg);
   border-top: 1px solid var(--border-color);
   padding: 24px 0;
   margin-top: auto;
   font-size: 0.85rem;
   color: var(--text-secondary);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
 .footer-content {

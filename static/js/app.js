@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const errorMessage = document.getElementById('error-message');
   const retryBtn = document.getElementById('retry-btn');
 
+  // Theme Toggle Elements
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const sunIcon = themeToggleBtn ? themeToggleBtn.querySelector('.sun-icon') : null;
+  const moonIcon = themeToggleBtn ? themeToggleBtn.querySelector('.moon-icon') : null;
+
   // Tweet Modal Elements
   const tweetModal = document.getElementById('tweet-modal');
   const closeModalBtn = document.getElementById('close-modal-btn');
@@ -40,6 +45,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalUpdateSnippet = document.getElementById('modal-update-snippet');
   const tagPills = document.querySelectorAll('.tag-pill');
   const toastContainer = document.getElementById('toast-container');
+
+  // =========================================================================
+  // Theme Management (Dark / Light Mode)
+  // =========================================================================
+
+  function getPreferredTheme() {
+    const savedTheme = localStorage.getItem('bq_theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('bq_theme', theme);
+
+    if (sunIcon && moonIcon) {
+      if (theme === 'dark') {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+        if (themeToggleBtn) themeToggleBtn.title = 'Switch to Light Mode';
+      } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+        if (themeToggleBtn) themeToggleBtn.title = 'Switch to Dark Mode';
+      }
+    }
+  }
+
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+    showToast(`Switched to ${newTheme === 'dark' ? 'Dark' : 'Light'} mode`);
+  }
+
+  // Initialize theme immediately
+  applyTheme(getPreferredTheme());
 
   // =========================================================================
   // Feed Fetching & Management
@@ -363,6 +407,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // Event Listeners & Initialization
   // =========================================================================
+
+  // Theme Toggle Button
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+  }
 
   // Refresh Button
   refreshBtn.addEventListener('click', () => fetchFeed(true));
