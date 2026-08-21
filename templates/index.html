@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BigQuery Release Notes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header Bar -->
+  <header class="app-header">
+    <div class="container header-content">
+      <div class="brand-group">
+        <div class="logo-wrapper">
+          <!-- BigQuery SVG Icon -->
+          <svg class="bq-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2005/svg">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z" fill="#4285F4"/>
+            <path d="M12 10.5v5m-2.5-2.5h5" stroke="#1A73E8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <div class="brand-badge-wrapper">
+            <h1>BigQuery Release Notes</h1>
+            <span class="source-badge">Live Feed</span>
+          </div>
+          <p class="subtitle">Latest updates, features, and deprecations from Google Cloud BigQuery</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span id="last-updated-text">Loading feed...</span>
+        </div>
+        <button id="refresh-btn" class="btn btn-primary" title="Fetch latest release notes">
+          <svg class="spinner-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2005/svg">
+            <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z" fill="currentColor"/>
+          </svg>
+          <span class="btn-text">Refresh Feed</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container main-content">
+    <!-- Filter & Search Toolbar -->
+    <section class="controls-bar">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search release notes by keyword (e.g. MCP, graph, SQL)..." autocomplete="off">
+        <button id="clear-search-btn" class="clear-btn" style="display: none;" title="Clear search">&times;</button>
+      </div>
+
+      <div class="filter-pills" id="filter-pills">
+        <button class="pill active" data-category="ALL">All Updates</button>
+        <button class="pill pill-feature" data-category="Feature">Features</button>
+        <button class="pill pill-deprecated" data-category="Deprecated">Deprecated</button>
+        <button class="pill pill-announcement" data-category="Announcement">Announcements</button>
+        <button class="pill pill-changed" data-category="Changed">Changed</button>
+      </div>
+
+      <div class="results-stats">
+        <span id="stats-counter">Loading updates...</span>
+      </div>
+    </section>
+
+    <!-- Error Banner -->
+    <div id="error-banner" class="alert-banner alert-error" style="display: none;">
+      <div class="alert-content">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <span id="error-message">Unable to load feed.</span>
+      </div>
+      <button id="retry-btn" class="btn btn-small">Retry</button>
+    </div>
+
+    <!-- Feed Container -->
+    <section id="feed-container" class="feed-container">
+      <!-- Loading Skeleton Placeholder -->
+      <div class="skeleton-card">
+        <div class="skeleton-line skeleton-title"></div>
+        <div class="skeleton-line skeleton-meta"></div>
+        <div class="skeleton-line skeleton-text"></div>
+        <div class="skeleton-line skeleton-text short"></div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-line skeleton-title"></div>
+        <div class="skeleton-line skeleton-meta"></div>
+        <div class="skeleton-line skeleton-text"></div>
+        <div class="skeleton-line skeleton-text short"></div>
+      </div>
+    </section>
+
+    <!-- No Results Placeholder -->
+    <div id="no-results" class="no-results" style="display: none;">
+      <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        <line x1="8" y1="11" x2="14" y2="11"></line>
+      </svg>
+      <h3>No release notes match your filter</h3>
+      <p>Try searching for a different keyword or reset filters.</p>
+      <button id="reset-filters-btn" class="btn btn-secondary">Reset Filters</button>
+    </div>
+  </main>
+
+  <!-- Tweet Modal -->
+  <div id="tweet-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <!-- X / Twitter Icon -->
+          <svg class="x-logo" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <h2 id="modal-title">Share BigQuery Update</h2>
+        </div>
+        <button id="close-modal-btn" class="close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="selected-update-preview">
+          <div class="preview-header">
+            <span id="modal-update-date" class="preview-date">August 20, 2026</span>
+            <span id="modal-update-category" class="category-badge category-feature">Feature</span>
+          </div>
+          <div id="modal-update-snippet" class="preview-snippet">...</div>
+        </div>
+
+        <div class="composer-group">
+          <label for="tweet-textarea" class="composer-label">
+            <span>Tweet Text</span>
+            <span id="char-counter" class="char-counter">0 / 280</span>
+          </label>
+          <textarea id="tweet-textarea" class="tweet-textarea" rows="5" placeholder="Draft your tweet..."></textarea>
+        </div>
+
+        <div class="hashtag-presets">
+          <span class="presets-label">Suggested Tags:</span>
+          <button type="button" class="tag-pill" data-tag="#BigQuery">#BigQuery</button>
+          <button type="button" class="tag-pill" data-tag="#GoogleCloud">#GoogleCloud</button>
+          <button type="button" class="tag-pill" data-tag="#DataEngineering">#DataEngineering</button>
+          <button type="button" class="tag-pill" data-tag="#SQL">#SQL</button>
+          <button type="button" class="tag-pill" data-tag="#CloudData">#CloudData</button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="copy-tweet-btn" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy Text</span>
+        </button>
+        <div class="footer-actions-right">
+          <button id="cancel-modal-btn" class="btn btn-ghost">Cancel</button>
+          <button id="post-tweet-btn" class="btn btn-x">
+            <!-- X Logo in button -->
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>Post on X / Twitter</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <p>Data sourced from <a href="https://docs.cloud.google.com/bigquery/docs/release-notes" target="_blank" rel="noopener">Google Cloud BigQuery Official Release Notes</a>.</p>
+      <p class="footer-note">Built with Python Flask, Vanilla HTML/JS/CSS.</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
