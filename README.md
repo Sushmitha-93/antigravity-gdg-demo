@@ -6,6 +6,7 @@ A lightweight, modern web application built with **Python Flask** and vanilla **
 
 - **Live Atom XML Feed Fetching**: Automatically parses and structures the official Google Cloud BigQuery release notes (`https://docs.cloud.google.com/feeds/bigquery-release-notes.xml`).
 - **Interactive Feed UI**: Clean Google Cloud-style card design organized by release date.
+- **Dark Mode UI Toggle**: Built-in dark/light theme switch with system preference detection and localStorage persistence.
 - **Categorized Badges**: Categorizes updates into `Feature`, `Deprecated`, `Announcement`, `Changed`, etc.
 - **Search & Category Filtering**: Instant client-side filtering by keyword or category pills.
 - **AJAX Refresh with Spinner**: Instant updates without full page reloads.
